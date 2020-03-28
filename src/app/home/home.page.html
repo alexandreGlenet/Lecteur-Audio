@@ -20,9 +20,10 @@
   <div id="container"> <!-- Nouveauté d'ionic 5 l'id container -->
     <h2>Chapitre 3</h2>
     <!-- Barre de progression --> <!-- Mode pour l'apparence android -->
-    <ion-range min="0" max="100" value="40" mode="md" color="warning"></ion-range>
+    <!-- ngModel directive angular pour relier variable currentPosition a la valeur du ion-range donc au curseur.-->
+    <ion-range (click)="changePosition()" min="0" [max]="audioDuration" [(ngModel)]="currentPostion" mode="md" color="warning"></ion-range>
     <!-- Temps restants -->
-    <p>Temps restant: 3m 10sec</p>
+    <p>Temps restant: {{ restTime }}</p>
 
     <!-- Les boutons -->
     <div class="flex-box">

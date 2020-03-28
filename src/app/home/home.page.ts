@@ -12,6 +12,9 @@ export class HomePage {
   //Déclaration d'une première variable qui sera un MediaObject.
   file: MediaObject;
   playIcon = 'play';
+  audioDuration: number; // Durée totale de la barre de progression.
+  currentPostion: number;
+  restTime: string; // Affichage du temps restant en min et en sec.
 
   constructor(
     public platform: Platform,
@@ -31,6 +34,29 @@ export class HomePage {
     this.file.onSuccess.subscribe(() => console.log('Action is successful'));
     this.file.onError.subscribe(error => console.log('Error!', error));
     this.file.play();
+
+    setInterval(() => {
+      this.file.getCurrentPosition().then((position) => {
+        this.audioDuration = Math.floor(this.file.getDuration());
+        this.currentPostion = Math.floor(position);
+        this.convertSec(this.audioDuration - this.currentPostion);
+      });
+    }, 1000);
+
+  }
+
+  // Fonction pour convertir des millisecondes en secondes et min.
+  convertSec(secondes: number) {
+    const min = Math.floor((secondes/60/60)*60);
+    const sec = Math.floor(((secondes/60/60)*60 - min)*60);
+    this.restTime = min + 'm ' + sec + 's';
+  }
+
+  // changer la position du curseur au click
+  changePosition(){
+    console.log ('position: ' + this.currentPostion);
+    this.file.seekTo(this.currentPostion*1000);//seekTo fonction qui permet de faire un déplacement, attention il faut mettre en milliseconde pour le seekTo
+    this.convertSec(this.audioDuration - this.currentPostion);
   }
 
   playPause(){ // Pour l'apparence du bouton
