@@ -11,6 +11,7 @@ export class HomePage {
 
   //Déclaration d'une première variable qui sera un MediaObject.
   file: MediaObject;
+  playIcon = 'play';
 
   constructor(
     public platform: Platform,
@@ -30,6 +31,17 @@ export class HomePage {
     this.file.onSuccess.subscribe(() => console.log('Action is successful'));
     this.file.onError.subscribe(error => console.log('Error!', error));
     this.file.play();
+  }
+
+  playPause(){ // Pour l'apparence du bouton
+    if(this.playIcon == 'play') {
+      this.playIcon = 'pause';
+      this.file.play();
+    }
+    else {
+      this.playIcon = 'play';
+      this.file.pause();
+    }
   }
 
 }
