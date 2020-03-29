@@ -15,6 +15,7 @@ export class HomePage {
   audioDuration: number; // Durée totale de la barre de progression.
   currentPostion: number;
   restTime: string; // Affichage du temps restant en min et en sec.
+  nameTrack = 'Mounika - Soul Blue Tango';
 
   constructor(
     public platform: Platform,
@@ -59,7 +60,7 @@ export class HomePage {
     this.convertSec(this.audioDuration - this.currentPostion);
   }
 
-  playPause(){ // Pour l'apparence du bouton
+  playPause(){
     if(this.playIcon == 'play') {
       this.playIcon = 'pause';
       this.file.play();
@@ -68,6 +69,13 @@ export class HomePage {
       this.playIcon = 'play';
       this.file.pause();
     }
+  }
+
+  seekTo(duration: number){ // ontransmet la durée qu'on veut ajouter ou soustraire en milliseconde
+    console.log('décalage de ' + duration/1000 + ' secondes'); //
+    this.file.seekTo(this.currentPostion*1000 + duration); // On déplace le fichier a un nouvel emplacement on travaille en millisecondes
+    this.currentPostion =  this.currentPostion + Math.floor(duration/1000); // On modifie la valeur du cureseur On travaille en secondes
+    this.convertSec(this.audioDuration - this.currentPostion);
   }
 
 }

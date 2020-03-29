@@ -18,7 +18,7 @@
   </div>
 
   <div id="container"> <!-- Nouveauté d'ionic 5 l'id container -->
-    <h2>Chapitre 3</h2>
+    <h2>{{ nameTrack }}</h2>
     <!-- Barre de progression --> <!-- Mode pour l'apparence android -->
     <!-- ngModel directive angular pour relier variable currentPosition a la valeur du ion-range donc au curseur.-->
     <ion-range (click)="changePosition()" min="0" [max]="audioDuration" [(ngModel)]="currentPostion" mode="md" color="warning"></ion-range>
@@ -28,7 +28,7 @@
     <!-- Les boutons -->
     <div class="flex-box">
       <!-- Pour sélectionner les icones aller sur https://ionicons.com/ -->
-      <ion-button fill="clear" color="light"> <!-- Pour avoir un fond clair -->
+      <ion-button (click)="seekTo(-10000)" fill="clear" color="light"> <!-- Pour avoir un fond clair -->
         <ion-icon slot="icon-only" name="play-back"></ion-icon>
       </ion-button>
 
@@ -36,7 +36,7 @@
         <ion-icon slot="icon-only" [name]="playIcon"></ion-icon> <!-- En ajoutant des crochets à l'attribut name je peux lui attribuer une variable. -->
       </ion-button>
 
-      <ion-button fill="clear" color="light"> <!-- Pour avoir un fond clair -->
+      <ion-button (click)="seekTo(+10000)" fill="clear" color="light"> <!-- Pour avoir un fond clair -->
         <ion-icon slot="icon-only" name="play-forward"></ion-icon>
       </ion-button>
 
